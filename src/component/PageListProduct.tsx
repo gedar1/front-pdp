@@ -25,9 +25,7 @@ const PageListProduct = () => {
           setProductSelected(response),
           setCategories(response)
         setFilterProducts(response)
-        const productsCategory: any = response?.map(
-          (item: any) => item?.category
-        )
+        const productsCategory = response?.map((item: any) => item?.category)
         const category: categoryType[] = [
           ...new Set(productsCategory),
         ] as categoryType[]
@@ -38,26 +36,23 @@ const PageListProduct = () => {
   const [checkedCategories, setCheckedCategories] = useState<any>(false)
   const [idCheckbox, setIdCheckbox] = useState<any>("")
 
-  const handleChangeInputSearch = (e: any) => {
-    const { target, value } = e
+  const handleChangeInputSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    const { target } = e
     setInputSearch(target.value)
   }
 
   const onChangeChecked = (e: ChangeEvent<HTMLInputElement>, id: any) => {
-    const updateIsChecked: any = categoriesUniques?.map(
-      (item: categoryType, index: number) => (item === id ? true : false)
+    const updateIsChecked: any = categoriesUniques?.map((item: categoryType) =>
+      item === id ? true : false
     )
     setCheckedCategories(updateIsChecked)
     setIdCheckbox(id)
     setIsChecked(true)
   }
 
-  // console.log(updateIsChecked1)
   const categoryItems: ISlelectedItem[] = productList?.filter(
     (product) => product?.category === idCheckbox
   )
-
-  console.log(categoryItems)
 
   useEffect(() => {
     getData()
@@ -76,7 +71,7 @@ const PageListProduct = () => {
       </div>
       <div className="cardContainer">
         {!isChecked
-          ? productList?.map((item: any, index: any) => (
+          ? productList?.map((item: any, index: number) => (
               <ListProducts
                 key={index}
                 id={`${index}-lp-${generatorKeyUnique}`}
@@ -92,7 +87,7 @@ const PageListProduct = () => {
             ))}
       </div>
       <div className="filterContainer">
-        {categoriesUniques?.map((item: any, index: any) => (
+        {categoriesUniques?.map((item: any, index: number) => (
           <div key={`${index}-ck-${generatorKeyUnique}`}>
             <div
               key={`${index}-ck-${generatorKeyUnique}`}
